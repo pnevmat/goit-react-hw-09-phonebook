@@ -1,5 +1,5 @@
 import React, {useEffect, lazy, Suspense} from 'react';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {Route, Switch} from 'react-router-dom';
 import PrivateRoute from './components/privateRoute';
 import PublicRoute from './components/publicRoute';
@@ -22,12 +22,14 @@ const RegistrationContainer = lazy(() => import('./redux/containers/registration
 const LoginContainer = lazy(() => import('./redux/containers/loginContainer' /* webpackChunkName: "Login-Page" */));
 const ContactsPageContainer = lazy(() => import('./redux/containers/contactsPageContainer' /* webpackChunkName: "Contacts-Page" */));
 
-const PhoneBook = ({ongetUserData}) => {
+const PhoneBook = () => {
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    ongetUserData();
+    dispatch(getUserDataOperation());
     
-  }, []);
+  }, [dispatch]);
 
   return (
     <Suspense fallback={<p>Загружаем...</p>} >
@@ -42,6 +44,8 @@ const PhoneBook = ({ongetUserData}) => {
     </Suspense>
   );
 };
+
+export default PhoneBook;
 
 // class PhoneBook extends Component {
 
@@ -65,8 +69,8 @@ const PhoneBook = ({ongetUserData}) => {
 //   };
 // };
 
-const mapDispatchToProps = {
-  ongetUserData: getUserDataOperation,
-}
+// const mapDispatchToProps = {
+//   ongetUserData: getUserDataOperation,
+// }
 
-export default connect(null, mapDispatchToProps)(PhoneBook);
+// export default connect(null, mapDispatchToProps)(PhoneBook);
