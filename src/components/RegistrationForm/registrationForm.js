@@ -52,9 +52,6 @@ const RegistrationForm = (props) => {
         <form className={styles.registration_form} onSubmit={(e) => {
             e.preventDefault();
             handleSubmit();
-            e.target.elements.name.value = '';
-            e.target.elements.email.value = '';
-            e.target.elements.password.value = '';
             }}
         >
             <label className={styles.registration_label} htmlFor="" name="contact">

@@ -6,21 +6,12 @@ import PublicRoute from './components/publicRoute';
 
 import getUserDataOperation from './redux/operations/AuthorisationOperations/getUserDataOperation';
 
-// import HomePageContainer from './redux/containers/homePageContainer';
-// import RegistrationContainer from './redux/containers/registrationContainer';
-// import LoginContainer from './redux/containers/loginContainer';
-// import ContactsPageContainer from './redux/containers/contactsPageContainer';
-
-// import ContactForm from './components/ContactsPage/ContactForm/ContactForm';
-// import Filter from './components/ContactsPage/Filter/Filter';
-// import ContactList from './components/ContactsPage/ContactList/ContactList';
-
 import './App.css';
 
-const HomePageContainer = lazy(() => import('./redux/containers/homePageContainer' /* webpackChunkName: "Home-Page" */));
-const RegistrationContainer = lazy(() => import('./redux/containers/registrationContainer' /* webpackChunkName: "Registration-Page" */));
-const LoginContainer = lazy(() => import('./redux/containers/loginContainer' /* webpackChunkName: "Login-Page" */));
-const ContactsPageContainer = lazy(() => import('./redux/containers/contactsPageContainer' /* webpackChunkName: "Contacts-Page" */));
+const HomePage = lazy(() => import('./views/homePage' /* webpackChunkName: "Home-Page" */));
+const RegisterPage = lazy(() => import('./views/registerPage' /* webpackChunkName: "Registration-Page" */));
+const LoginPage = lazy(() => import('./views/loginPage' /* webpackChunkName: "Login-Page" */));
+const ContactsPage = lazy(() => import('./views/contactsPage' /* webpackChunkName: "Contacts-Page" */));
 
 const PhoneBook = () => {
 
@@ -35,10 +26,10 @@ const PhoneBook = () => {
     <Suspense fallback={<p>Загружаем...</p>} >
       <section className="section">
         <Switch>
-          <Route exact path='/' render={(props) => <HomePageContainer {...props} />} />
-          <PublicRoute path='/register' restricted component={RegistrationContainer} redirectTo='/contacts' />
-          <PublicRoute path='/login' restricted component={LoginContainer} redirectTo='/contacts' />
-          <PrivateRoute path='/contacts' component={ContactsPageContainer} redirectTo='/login' />
+          <Route exact path='/' render={(props) => <HomePage {...props} />} />
+          <PublicRoute path='/register' restricted component={RegisterPage} redirectTo='/contacts' />
+          <PublicRoute path='/login' restricted component={LoginPage} redirectTo='/contacts' />
+          <PrivateRoute path='/contacts' component={ContactsPage} redirectTo='/login' />
         </Switch>
       </section>
     </Suspense>
